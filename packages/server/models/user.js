@@ -15,30 +15,6 @@ const UserSchema = new Schema({
         required: true,
         minlength: 8,
         match: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/
-    },
-    images: {
-        type: [{
-            url: {
-                type: String,
-                required: true,
-            },
-            title: {
-                type: String,
-                optional: true,
-            },
-            description: {
-                type: String,
-                optional: true,
-            },
-        }],
-        default: [],
-    },
-    verified: {
-        type: Boolean,
-        default: false
-    },
-    code: {
-        type: Number
     }
 })
 
