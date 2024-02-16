@@ -1,0 +1,15 @@
+{
+  "name": "AgroScape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-fe": "npm --prefix packages/client run dev",
+    "dev-be": "npm --prefix packages/server run dev"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "",
+  "license": "ISC"
+}
