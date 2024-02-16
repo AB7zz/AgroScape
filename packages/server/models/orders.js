@@ -3,9 +3,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-    items: {
-        type: [
-            {
                 id: {
                     type: Number,
                     required: true
@@ -18,10 +15,6 @@ const OrderSchema = new Schema({
                     type: Number,
                     required: true
                 }
-            }
-        ],
-        default: []
-    }
 });
 
 const Orders = mongoose.model('Orders', OrderSchema);
