@@ -4,12 +4,8 @@ const Schema = mongoose.Schema;
 
 const MarketPlaceSchema = new Schema({
     items: {
-        type: [
+        type: 
             {
-                id: {
-                    type: Number,
-                    required: true
-                },
                 name: {
                     type: String,
                     required: true
@@ -31,7 +27,7 @@ const MarketPlaceSchema = new Schema({
                     required: true
                 }
             }
-        ],
+        ,
         default: []
     }
 });

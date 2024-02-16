@@ -1,30 +1,32 @@
 import User from "../../models/user.js"
 import bcrypt from 'bcryptjs'
 
-function generateRandom4DigitNumber() {
-    const randomNum = Math.random() * 9999;
-  
-    const flooredNum = Math.floor(randomNum);
-  
-    const fourDigitNum = flooredNum + 1000;
-  
-    return fourDigitNum;
-}
-
 const signup = async(req, res) => {
     try {
         const email = req.body.email
         const password = req.body.password
-        const code = generateRandom4DigitNumber();
+        const name = req.body.name
+        const dob = req.body.dob
+        const address = req.body.address
+        const points = req.body.points
+        const streak = req.body.streak
+        const phone = req.body.phone
+
         const user = new User({
             email: email,
             password: bcrypt.hashSync(password, 8),
-            code
+            name: name,
+            dob: dob,
+            address: address,
+            points: points,
+            streak: streak,
+            phone: phone
+
         });
 
         user.save()
         
-        res.send({ code, success: true, message: "User was registered successfully!" });
+        res.send({ success: true, message: "User was registered successfully!" });
     } catch (error) {
         console.log(error)
     }
