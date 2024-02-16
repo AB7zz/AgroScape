@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev-fe": "npm --prefix packages/client run dev",
-    "dev-be": "npm --prefix packages/server run dev"
+    "dev-be": "npm --prefix packages/server run dev",
+    "push": "git pull && git push -u origin main"
   },
   "workspaces": [
     "packages/*"

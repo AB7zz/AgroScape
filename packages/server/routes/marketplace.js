@@ -1,7 +1,7 @@
 import express from 'express'
-import marketplace from '../controllers/marketplace/index.js'
+import Insertmarketplace from '../controllers/marketplace/index.js'
 const router = express.Router()
 
-router.post('/marketplace',marketplace)
+router.post('/marketplace', Insertmarketplace)
 
 export default router

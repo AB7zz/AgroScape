@@ -1,16 +1,18 @@
 import Marketplace from "../../models/marketplace.js"
 
 
-const Marketplace = async(req, res) => {
+const Insertmarketplace = async(req, res) => {
     try {
         const name = req.body.name
         const price = req.body.price
         const desc = req.body.desc
         const quantity = req.body.quantity
         const img = req.body.img
+
+        console.log(req.body)
     
 
-        const Marketplace = new Marketplace({
+        const marketplace = new Marketplace({
             name: name,
             price: price,
             desc: desc,
@@ -18,7 +20,7 @@ const Marketplace = async(req, res) => {
             img: img
         });
 
-        Marketplace.save()
+        marketplace.save()
         
         res.send({ success: true, message: "New product added successfully!" });
     } catch (error) {
@@ -26,4 +28,4 @@ const Marketplace = async(req, res) => {
     }
 }
 
-export default Marketplace
+export default Insertmarketplace
