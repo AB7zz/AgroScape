@@ -41,35 +41,35 @@ export const UserContextProvider = ({children}) => {
 
     const [marketItems, setMarketItems] = React.useState([
         {
-            id: 1,
+            _id: 1,
             name: "Item 1",
             price: "0.1",
             quant: 4,
             image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
-            id: 2,
+            _id: 2,
             name: "Item 2",
             price: "0.2",
             quant: 4,
             image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
-            id: 3,
+            _id: 3,
             name: "Item 3",
             price: "0.3",
             quant: 4,
             image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
-            id: 4,
+            _id: 4,
             name: "Item 4",
             price: "0.3",
             quant: 4,
             image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
-            id: 5,
+            _id: 5,
             name: "Item 5",
             price: "0.3",
             quant: 4,
@@ -79,7 +79,7 @@ export const UserContextProvider = ({children}) => {
 
     const [forums, setForums] = React.useState([
         {
-            id: 1,
+            _id: 1,
             title: "What is this thing I'm confused ?",
             desc: "how am I supposed to buy seeds Im so confused. where do I go? what do I do? help me out please. Someone please help me, please. I dont know what to do, someone, answer my question.",
             comments: [
@@ -91,7 +91,7 @@ export const UserContextProvider = ({children}) => {
             ]
         },
         {
-            id: 2,
+            _id: 2,
             title: "What is this thing I'm confused ?",
             desc: "how am I supposed to buy seeds Im so confused. where do I go? what do I do? help me out please. Someone please help me, please. I dont know what to do, someone, answer my question.",
             comments: [
@@ -103,7 +103,7 @@ export const UserContextProvider = ({children}) => {
             ]
         },
         {
-            id: 3,
+            _id: 3,
             title: "What is this thing I'm confused ?",
             desc: "how am I supposed to buy seeds Im so confused. where do I go? what do I do? help me out please. Someone please help me, please. I dont know what to do, someone, answer my question.",
             comments: [
@@ -118,7 +118,7 @@ export const UserContextProvider = ({children}) => {
 
     const [forum, setForum] = React.useState(
         {
-            id: 1,
+            _id: 1,
             title: "What is this thing I'm confused ?",
             desc: "how am I supposed to buy seeds Im so confused. where do I go? what do I do? help me out please. Someone please help me, please. I dont know what to do, someone, answer my question.",
             comments: [
@@ -143,11 +143,87 @@ export const UserContextProvider = ({children}) => {
         }
     )
 
+    const [cart, setCart] = React.useState([
+        {
+            _id: 1,
+            name: "Item 1",
+            price: "0.1",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 2,
+            name: "Item 2",
+            price: "0.2",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 3,
+            name: "Item 3",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 4,
+            name: "Item 4",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 5,
+            name: "Item 5",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        }
+    ])
+
+    const [orders, setOrders] = React.useState([
+        {
+            _id: 1,
+            name: "Item 1",
+            price: "0.1",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 2,
+            name: "Item 2",
+            price: "0.2",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 3,
+            name: "Item 3",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 4,
+            name: "Item 4",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        },
+        {
+            _id: 5,
+            name: "Item 5",
+            price: "0.3",
+            quant: 4,
+            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+        }
+    ])
+
     const fetchMarketplace = () => {
         try {
             axios.get(`${serverUrl}/marketplace`)
             .then(res => {
-                setMarketItems(res.data.marketplace)
+                // setMarketItems(res.data.marketplace)
             })
         } catch (error) {
             console.log(error)
@@ -172,7 +248,7 @@ export const UserContextProvider = ({children}) => {
                 setForum(res.data.forum)
             })
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
@@ -180,7 +256,8 @@ export const UserContextProvider = ({children}) => {
         try {
             axios.post(`${serverUrl}/cart`, {
                 id,
-                quant
+                quant,
+                userId: localStorage.getItem('id')
             })
             .then(res => {
                 console.log(res.data)
@@ -190,11 +267,23 @@ export const UserContextProvider = ({children}) => {
         }
     }
 
+    const fetchCart = () => {
+        try {
+            axios.get(`${serverUrl}/cart`, {id: localStorage.getItem('id')})
+            .then(res => {
+                // setCart(res.data.cart)
+                console.log(res.data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const addComment = (id, from, comment, user_id) => {
         try {
-            axios.post(`${serverUrl}/forums/${id}`, {
+            axios.post(`${serverUrl}/comment/${id}`, {
                 comment,
-                user_id,
+                userId: user_id,
                 from
             })
             .then(res => {
@@ -205,14 +294,45 @@ export const UserContextProvider = ({children}) => {
         }
     }
 
-    const addReply = (from, reply) => {
+    const Checkout = () => {
         try {
-            
+            axios.post(`${serverUrl}/checkout`, {cart})
+            .then(res => {
+                console.log(res.data)
+                window.location.replace('/')
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }    
+
+    const fetchOrders = () => {
+        try {
+            axios.get(`${serverUrl}/orders`, {userId: localStorage.getItem('id')})
+            .then(res => {
+                setOrders(res.data.orders)
+            })
         } catch (error) {
             console.log(error)
         }
     }
-    
+
+    const createForum = (title, desc) => {
+        try {
+            axios.post(`${serverUrl}/forums`, {
+                title,
+                desc,
+                userId: localStorage.getItem('id')
+            })
+            .then(res => {
+                console.log(res.data)
+                window.location.replace('/forums')
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return(
         <UserContext.Provider value={{
             userError,
@@ -220,6 +340,12 @@ export const UserContextProvider = ({children}) => {
             forums,
             forum,
             users,
+            cart,
+            orders,
+            createForum,
+            Checkout,
+            fetchCart,
+            fetchOrders,
             addComment,
             fetchForum,
             addToCart,
