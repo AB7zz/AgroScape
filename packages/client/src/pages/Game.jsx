@@ -4,9 +4,22 @@ import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 
-const Row = ({task, setToDo, toDo, day}) => {
+const Row = ({task, setToDo, day}) => {
 
-  const { updateTask } = useUserContext()
+  
+  const { updateTask, toDo, addReminder, sendReminder, reminders, fetchReminder } = useUserContext()
+  
+  React.useEffect(() => {
+    fetchReminder()
+    setInterval(() => {
+      sendReminder()
+    }, [500])
+  }, [reminder])
+
+  const [reminder, setReminder] = React.useState(false)
+  const [time, setTime] = React.useState('')
+
+  const [reminderSet, setReminderSet] = React.useState(false)
 
   const handleClick = (e, taskName) => {
     console.log(toDo[day])
@@ -26,13 +39,34 @@ const Row = ({task, setToDo, toDo, day}) => {
     updateTask(newToDo, localStorage.getItem('plant'))
   }
   return (
-    <div className=''>
-      <div className='flex justify-between py-5'>
-        <p className='feather'>{task.task}</p>
-        <input onClick={e => handleClick(e, task.task)} type="checkbox" className='w-[50px]' />
+    <>
+      {reminder && !reminderSet &&
+      <div className='fixed z-40 top-[200px] left-[100px]'>
+        <div className='bg-white rounded-[20px] custom-border-1 h-[200px] w-[200px] px-3 py-5'>
+          <h1 className='text-center feather text-2xl text-black font-bold'>Set Time</h1>
+          <input onChange={e => setTime(e.target.value)} type="time" className='w-full rounded-[10px] border-2 border-[#16A637] px-5 py-3 my-5 feather' />
+          <div className='flex justify-between'>
+            <button onClick={() => setReminder(false)} className='feather text-white font-bold text-md rounded bg-red-600 px-3 py-2'>Cancel</button>
+            <button onClick={() => addReminder(time, task.task, setReminderSet)} className='feather text-white font-bold text-md rounded bg-green-600 px-3 py-2'>Set</button>
+          </div>
+        </div>
       </div>
-      <hr />
-    </div>
+      }
+      <div className=''>
+        <div className='flex justify-between py-5'>
+          <div className='flex items-center'>
+            {reminder ? 
+            <i class="fa-solid fa-bell text-blue-500 mr-2 text-lg"></i>
+            :
+            <i onClick={() => setReminder(reminder => !reminder)} class="fa-regular fa-bell text-blue-500 mr-2 text-lg"></i>
+            }
+            <p className='feather'>{task.task}</p>
+          </div>
+          <input onClick={e => handleClick(e, task.task)} type="checkbox" className='w-[50px]' defaultChecked={task.done} />
+        </div>
+        <hr />
+      </div>
+    </>
   )
 
 }
@@ -84,14 +118,14 @@ const Game = () => {
       : 
       <div className='mb-20'>
         <Link to='/chat'>
-          <div className='absolute right-[10px] top-[115px]'>
+          <div className='absolute right-[10px] top-[70px]'>
             <div className='bg-[#16A637] rounded-[50%] px-2 py-2'>
             <i className="fa-brands fa-rocketchat text-white"></i>
             </div>
           </div>
         </Link>
         <div className='bg-gray-200 h-full w-full py-5'>
-          <h1 className='feather text-center text-[#16A637] font-bold text-4xl'>Day {day*10*day}</h1>
+          <h1 className='feather text-center text-[#16A637] font-bold text-4xl'>Day {day*day*10}</h1>
           {hurt && 
           <div className='absolute z-20 mt-[180px] ml-[150px]'>
               <Player

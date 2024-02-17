@@ -229,37 +229,30 @@ export const UserContextProvider = ({children}) => {
     ])
 
     const [toDo, setToDo] = React.useState([
+        // Day 0
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Buy tomato seeds', done: false },
+          { task: 'Prepare soil', done: false },
+          { task: 'Plant tomato seeds', done: false }
         ],
+        // Day 1
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Water tomato seeds', done: false }
+          // Additional tasks based on specific needs
         ],
+        // Day 2
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Check soil moisture', done: false },
+          { task: 'Provide sunlight', done: false }
+          // Additional tasks based on specific needs
+        ],
+        // Day X (Adjust as needed)
+        [
+          { task: 'Transplant seedlings (if applicable)', done: false },
+          { task: 'Continue watering and monitoring', done: false },
+          // Additional tasks based on specific needs
         ]
-    ])
+    ]);
 
     const [messages, setMessages] = React.useState([
         {
@@ -271,6 +264,8 @@ export const UserContextProvider = ({children}) => {
           message: 'Hi, how can I help you?'
         }
     ])
+
+    const [reminders, setReminders] = React.useState([])
 
     const [day, setDay] = React.useState(0)
 
@@ -402,15 +397,23 @@ export const UserContextProvider = ({children}) => {
         axios.post(`${serverUrl}/plant`, {plant: localStorage.getItem('plant'), id: localStorage.getItem('id'), tasks: toDo})
     }
 
+    const checkIfAllChecked = () => {
+        return !toDo[day].some(task => !task.done)
+    }
+
     const nextDay = () => {
-        localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
-        setDay(day => day+1)
-        console.log(day+1)
-        axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
-        .then(res => {
-            setProfile(res.data.profile)
-            console.log(res.data)
-        })
+        const check = checkIfAllChecked()
+        console.log(check)
+        // if(check){
+            localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
+            setDay(day => day+1)
+            console.log(day+1)
+            axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
+            .then(res => {
+                setProfile(res.data.profile)
+                console.log(res.data)
+            })
+        // }
     }
 
     const fetchProfile = () => {
@@ -436,8 +439,8 @@ export const UserContextProvider = ({children}) => {
     const fetchTask = () => {
         axios.get(`${serverUrl}/task/${localStorage.getItem('plant')}/${localStorage.getItem('id')}`)
         .then(res => {
-            console.log(res.data)
-            // setToDo(res.data.tasks)
+            console.log(res.data.tasks)
+            setToDo(res.data.tasks)
         })
     }
 
@@ -450,14 +453,14 @@ export const UserContextProvider = ({children}) => {
     }
 
     const sendMessage = async(message) => {
-        const openaiApiEndpoint = 'https://api.openai.com/v1/completions';
+        const openaiApiEndpoint = 'https://api.openai.com/v1/chat/completions';
         const plant = localStorage.getItem('plant')
         let prompt = `Imagine you're a ${plant} and I'm a human. Here is my message: "${message}". Reply to me. No need to start with "I'm a ${plant} and I prefer...". Just reply as if you're a ${plant} and you're answering the question.`
         axios.post(openaiApiEndpoint, 
             {
-                prompt,
-                model:"text-davinci-003",
-                max_tokens: 400,
+                model:"gpt-3.5-turbo",
+                messages: [{role: 'user', content: prompt}],
+                temperature: 0.7
             }, 
             {
                 headers: {
@@ -467,9 +470,38 @@ export const UserContextProvider = ({children}) => {
             }
         )
         .then(res => {
-            const reply = res.data.choices[0].text.trim()
-            setMessages([...messages, {from: 'bot', message: reply}])
+            const reply = res.data.choices[0].message.content
+            setMessages([...messages, { from: 'user', message: message }, {from: 'bot', message: reply}])
         })
+    }
+
+    const addReminder = (time, task, setReminderSet) => {
+        console.log(time, task)
+        setReminderSet(true)
+        axios.post(`${serverUrl}/reminder`, {time, task, id: localStorage.getItem('id')})
+    }
+
+    const fetchReminder = () => {
+        console.log('fetching reminders')
+        axios.get(`${serverUrl}/reminder/${localStorage.getItem('id')}`)
+        .then(res => {
+            console.log(res.data.reminders)
+            setReminders(res.data.reminders)
+        })
+    }
+
+    const sendReminder = () => {
+        console.log('running');
+        const now = new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+        reminders.forEach(reminder => {
+            const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
+            if (currentHours === reminderHours && currentMinutes === reminderMinutes) {
+                alert(`Reminder: ${reminder.task}`);
+                // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
+            }
+        });
     }
 
     return(
@@ -485,6 +517,10 @@ export const UserContextProvider = ({children}) => {
             day,
             toDo,
             messages,
+            reminders,
+            fetchReminder,
+            sendReminder,
+            addReminder,
             setMessages,
             fetchTask,
             fetchMessages,

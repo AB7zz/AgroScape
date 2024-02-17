@@ -51,7 +51,7 @@ const Chat = () => {
           <Controls />
         </Player>
 
-        <div className='px-5 py-5'>
+        <div className='px-5 py-5 overflow-y-auto mb-40'>
           {messages.map(message => {
             if(message.from == 'user'){
               return displayMessage(message.message, 'right')
@@ -61,7 +61,7 @@ const Chat = () => {
           })}
         </div>
 
-        <div className='fixed bottom-[100px] w-full px-3 flex'>
+        <div className='fixed bottom-[100px] w-full px-3 flex bg-white '>
             <input onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Enter message" className='feather rounded border-2 w-full px-5 py-2' />
             <button onClick={handleSubmit} className='rounded bg-[#16A637] px-5 ml-2'>
               <i class="fa-solid fa-paper-plane text-white"></i>

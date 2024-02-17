@@ -18,6 +18,7 @@ import TopNav from './components/Home/TopNav'
 import BotNav from './components/Home/BotNav'
 import CreateForum from './pages/CreateForum'
 import Chat from './pages/Chat'
+import Leaderboard from './pages/Leaderboard'
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/steps" element={<Steps />} />
           <Route path="/create" element={<CreateForum />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
         <BotNav />
       </BrowserRouter>
