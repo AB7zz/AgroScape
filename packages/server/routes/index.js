@@ -8,5 +8,8 @@ import checkout from './checkout.js'
 import forums from './forums.js'
 import comment from './comment.js'
 import user from './user.js'
+import day from './day.js'
+import task from './task.js'
+import plant from './plant.js'
 
-export default [login, signup, marketplace,cart,profile,orders,checkout,forums,comment,user]
+export default [login, signup, marketplace,cart,profile,orders,checkout,forums,comment,user,day,task,plant]

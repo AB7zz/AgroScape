@@ -39,8 +39,11 @@ const UserSchema = new Schema({
     phone: {
         type: String,
         required: true
+    },
+    day: {
+        type: Number,
+        default: 0
     }
-
 })
 
 const User = mongoose.model('User', UserSchema);

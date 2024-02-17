@@ -227,6 +227,43 @@ export const UserContextProvider = ({children}) => {
         }
     ])
 
+    const [toDo, setToDo] = React.useState([
+        [
+          {
+            task: 'Buy soil',
+            done: false
+          },
+          {
+            task: 'Plant seeds',
+            done: false
+          }
+        ],
+        [
+          {
+            task: 'Buy soil',
+            done: false
+          },
+          {
+            task: 'Plant seeds',
+            done: false
+          }
+        ],
+        [
+          {
+            task: 'Buy soil',
+            done: false
+          },
+          {
+            task: 'Plant seeds',
+            done: false
+          }
+        ]
+    ])
+
+    const [day, setDay] = React.useState(0)
+
+    const [profile, setProfile] = React.useState({})
+
     const fetchMarketplace = () => {
         try {
             axios.get(`${serverUrl}/marketplace`)
@@ -346,15 +383,70 @@ export const UserContextProvider = ({children}) => {
         }
     }
 
+    const plantChosen = (setStep) => {
+        localStorage.setItem('plant', 'tomato')
+        localStorage.setItem('day', 0)
+        setStep(2)
+        axios.post(`${serverUrl}/plant`, {plant: localStorage.getItem('plant'), id: localStorage.getItem('id'), tasks: toDo})
+    }
+
+    const nextDay = () => {
+        localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
+        setDay(day => day+1)
+        console.log(day+1)
+        axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
+        .then(res => {
+            setProfile(res.data.profile)
+            console.log(res.data)
+        })
+    }
+
+    const fetchProfile = () => {
+        try {
+            axios.get(`${serverUrl}/profile/${localStorage.getItem('id')}`)
+            .then(res => {
+                setProfile(res.data.profile)
+                localStorage.setItem('day', res.data.profile.day)
+                setDay(res.data.profile.day)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const updateTask = (newToDo, plant) => {
+        axios.post(`${serverUrl}/task`, {tasks: newToDo, plant, id: localStorage.getItem('id')})
+        .then(res => {
+            console.log(res.data)
+        })
+    }
+
+    const fetchTask = () => {
+        axios.get(`${serverUrl}/task/${localStorage.getItem('plant')}/${localStorage.getItem('id')}`)
+        .then(res => {
+            console.log(res.data)
+            // setToDo(res.data.tasks)
+        })
+    }
+
     return(
         <UserContext.Provider value={{
             userError,
             marketItems,
+            profile,
             forums,
             forum,
             users,
             cart,
             orders,
+            day,
+            fetchTask,
+            toDo,
+            setToDo,
+            fetchProfile,
+            nextDay,
+            setDay,
+            plantChosen,
             fetchUsers,
             createForum,
             Checkout,
@@ -364,6 +456,7 @@ export const UserContextProvider = ({children}) => {
             fetchForum,
             addToCart,
             fetchForums,
+            updateTask,
             fetchMarketplace
         }}>
             {children}
