@@ -11,7 +11,7 @@ const ForumCard = () => {
             <Link to='/forums' className='font-semibold text-blue-500 text-xl'>View more</Link>
         </div>
         {forums && 
-        <Link to='/forum/0'>
+        <Link to={`/forum/${forums[0]._id}`}>
             <div className='my-5 shadow-xl rounded-[15px] px-5 py-2'>
                 <h1 className='font-bold text-xl'>{forums[0].title}</h1>
                 <p className='my-3 text-gray-500'>{forums[0].desc.slice(0,100)}...</p>

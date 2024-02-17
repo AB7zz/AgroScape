@@ -8,10 +8,10 @@ const MarketPlace = () => {
     fetchMarketplace()
   }, [])
   return (
-    <div className='mb-20'>
+    <div className='mb-20 px-5'>
       <div className='grid grid-cols-2'>
         {marketItems && marketItems.map(item => (
-          <Card key={item._id} id={item._id} image={item.image} name={item.name} price={item.price} quant={item.quant} />
+          <Card key={item._id} id={item._id} img={item.img} name={item.name} price={item.price} quant={item.quantity} />
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@ import Cart from "../../models/cart.js"
 
 const Insertcart = async(req, res) => {
     try {
-        const id = req.body.id
+        const itemId = req.body.id
         const userId = req.body.userId
         const quantity = req.body.quantity
 
@@ -11,14 +11,14 @@ const Insertcart = async(req, res) => {
     
 
         const cart = new Cart({
-            id:id,
+            itemId:itemId,
             userId:userId,
             quantity:quantity
         });
 
         cart.save()
         
-        res.send({ success: true, message: "Item added to cart successfully!" });
+        res.send({ success: true, message: "Item added to cart successfully!", cart });
     } catch (error) {
         console.log(error)
     }

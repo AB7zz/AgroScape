@@ -16,7 +16,7 @@ export const UserContextProvider = ({children}) => {
         message: ""
     })
 
-    const [users, setUser] = React.useState([
+    const [users, setUsers] = React.useState([
         {
             _id: 1,
             name: "User 1",
@@ -39,41 +39,49 @@ export const UserContextProvider = ({children}) => {
         },
     ])
 
+    const fetchUsers = () => {
+        axios.get(`${serverUrl}/users`)
+        .then(res => {
+            console.log(res.data.users)
+            setUsers(res.data.users)
+        })
+    }
+
     const [marketItems, setMarketItems] = React.useState([
         {
             _id: 1,
             name: "Item 1",
             price: "0.1",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 2,
             name: "Item 2",
             price: "0.2",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 3,
             name: "Item 3",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 4,
             name: "Item 4",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 5,
             name: "Item 5",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         }
     ])
 
@@ -148,36 +156,36 @@ export const UserContextProvider = ({children}) => {
             _id: 1,
             name: "Item 1",
             price: "0.1",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 2,
             name: "Item 2",
             price: "0.2",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 3,
             name: "Item 3",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 4,
             name: "Item 4",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 5,
             name: "Item 5",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         }
     ])
 
@@ -186,36 +194,36 @@ export const UserContextProvider = ({children}) => {
             _id: 1,
             name: "Item 1",
             price: "0.1",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 2,
             name: "Item 2",
             price: "0.2",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 3,
             name: "Item 3",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 4,
             name: "Item 4",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         },
         {
             _id: 5,
             name: "Item 5",
             price: "0.3",
-            quant: 4,
-            image: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
+            quantity: 4,
+            img: "https://img.etimg.com/thumb/width-1200,height-1200,imgsize-166485,resizemode-75,msid-47594468/magazines/panache/benefits-of-these-six-super-seeds.jpg"
         }
     ])
 
@@ -223,7 +231,7 @@ export const UserContextProvider = ({children}) => {
         try {
             axios.get(`${serverUrl}/marketplace`)
             .then(res => {
-                // setMarketItems(res.data.marketplace)
+                setMarketItems(res.data.marketplace)
             })
         } catch (error) {
             console.log(error)
@@ -235,6 +243,7 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/forums`)
             .then(res => {
                 setForums(res.data.forums)
+                console.log(res.data.forums)
             })
         } catch (error) {
             console.log(error)
@@ -246,6 +255,7 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/forums/${id}`)
             .then(res => {
                 setForum(res.data.forum)
+                console.log(res.data.forum)
             })
         } catch (error) {
             console.log(error)
@@ -256,11 +266,12 @@ export const UserContextProvider = ({children}) => {
         try {
             axios.post(`${serverUrl}/cart`, {
                 id,
-                quant,
+                quantity: quant,
                 userId: localStorage.getItem('id')
             })
             .then(res => {
                 console.log(res.data)
+                setCart(res.data.cart)
             })
         } catch (error) {
             console.log(error)
@@ -269,9 +280,9 @@ export const UserContextProvider = ({children}) => {
 
     const fetchCart = () => {
         try {
-            axios.get(`${serverUrl}/cart`, {id: localStorage.getItem('id')})
+            axios.get(`${serverUrl}/cart/${localStorage.getItem('id')}`)
             .then(res => {
-                // setCart(res.data.cart)
+                setCart(res.data.cart)
                 console.log(res.data)
             })
         } catch (error) {
@@ -279,15 +290,17 @@ export const UserContextProvider = ({children}) => {
         }
     }
 
-    const addComment = (id, from, comment, user_id) => {
+    const addComment = (id, from, comment) => {
         try {
-            axios.post(`${serverUrl}/comment/${id}`, {
+            axios.post(`${serverUrl}/comment`, {
+                id,
                 comment,
-                userId: user_id,
+                userId: localStorage.getItem('id'),
                 from
             })
             .then(res => {
                 console.log(res.data)
+                setForum(res.data.forum)
             })
         } catch (error) {
             console.log(error)
@@ -342,6 +355,7 @@ export const UserContextProvider = ({children}) => {
             users,
             cart,
             orders,
+            fetchUsers,
             createForum,
             Checkout,
             fetchCart,

@@ -3,7 +3,7 @@ import Orders from "../../models/orders.js";
 const FetchOrders = async (req, res) => {
     try {
         const order = await Orders.find({
-            userId: req.body.id
+            userId: req.params.id
         });
         res.json({ order });
     } catch (error) {

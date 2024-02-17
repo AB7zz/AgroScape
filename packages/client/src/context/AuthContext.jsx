@@ -38,12 +38,12 @@ export const AuthContextProvider = ({children}) => {
         }
     }
 
-    const Signup = async(email, password, date, phone, address) => {
+    const Signup = async(email, password, name, date, phone, address) => {
         try {
             console.log(email, password)
             setEmail(email)
             localStorage.setItem('email', email)
-            const res = await axios.post(`${serverUrl}/signup`, {email, password, date, phone, address})
+            const res = await axios.post(`${serverUrl}/signup`, {email, password, name, dob: date, phone, address})
             if(res.data.success){
                 setAuthError({error: false, message: ''})
                 window.location.replace('/login')

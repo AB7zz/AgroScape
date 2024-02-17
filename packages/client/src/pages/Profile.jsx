@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useUserContext } from '../context/UserContext'
+import { useAuthContext } from '../context/AuthContext'
 
 
 const Profile = () => {
-  const { Signout } = useUserContext()
+  const { Logout } = useAuthContext()
   return (
     <div className='py-0 mb-20'>
       <div className='flex flex-col'>
@@ -29,7 +29,7 @@ const Profile = () => {
           <Link to='/create' className='bg-[#E9E9E9] px-5 py-10 flex drop-shadow-2xl'>
               <p to='/marketplace' className='text-center m-auto font-semibold text-[#707070] text-xl nunito'>Start Forum</p>
           </Link>
-          <Link onClick={Signout} className='bg-[#E9E9E9] px-5 py-10 flex drop-shadow-2xl'>
+          <Link onClick={Logout} className='bg-[#E9E9E9] px-5 py-10 flex drop-shadow-2xl'>
               <p className='text-center m-auto font-semibold text-[#707070] text-xl nunito'>Log out</p>
           </Link>
       </div>

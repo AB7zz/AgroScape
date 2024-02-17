@@ -18,15 +18,11 @@ const ForumSchema = new Schema({
     comments: {
         type: [
             {
-                id: {
-                    type: Number,
-                    required: true
-                },
                 from: {
-                    type: Number,
+                    type: String,
                     required: true
                 },
-                email: {
+                userId: {
                     type: String,
                     required: true
                 },

@@ -13,7 +13,7 @@ const MarketCard = () => {
         </div>
         <div className='grid grid-cols-2 gap-5'>
             {marketItems && marketItems.slice(0, 4).map(item => 
-                <Card key={item._id} id={item._id} image={item.image} name={item.name} price={item.price} quant={item.quant} />
+                <Card key={item._id} id={item._id} img={item.img} name={item.name} price={item.price} quant={item.quantity} />
             )}
         </div>
     </div>

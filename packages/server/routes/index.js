@@ -6,5 +6,7 @@ import profile from './profile.js'
 import orders from './orders.js'
 import checkout from './checkout.js'
 import forums from './forums.js'
+import comment from './comment.js'
+import user from './user.js'
 
-export default [login, signup, marketplace,cart,profile,orders,checkout,forums]
+export default [login, signup, marketplace,cart,profile,orders,checkout,forums,comment,user]

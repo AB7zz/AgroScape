@@ -6,6 +6,7 @@ const SignupCard = () => {
     const { Signup, authError } = useAuthContext()
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const [name, setName] = React.useState('')
     const [phone, setPhone] = React.useState('')
     const [date, setDate] = React.useState('')
     const [address, setAddress] = React.useState('')
@@ -15,11 +16,11 @@ const SignupCard = () => {
           {authError.error && <p className='text-red-500'>{authError.message}</p>}
           <input onChange={e => setEmail(e.target.value)} type="text" placeholder='Enter email' className='border border-1 pl-2 py-1 my-3' />
           <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Enter password' className='border border-1 pl-2 py-1 my-3' />
-          <input onChange={e => setEmail(e.target.value)} type="text" placeholder='Enter name' className='border border-1 pl-2 py-1 my-3' />
+          <input onChange={e => setName(e.target.value)} type="text" placeholder='Enter name' className='border border-1 pl-2 py-1 my-3' />
           <input onChange={e => setDate(e.target.value)} type="date" className='border border-1 pl-2 py-1 my-3' />
           <input onChange={e => setPhone(e.target.value)} type="text" placeholder='Enter phone number' className='border border-1 pl-2 py-1 my-3' />
           <textarea onChange={e => setAddress(e.target.value)} type="text" placeholder='Enter address' className='border border-1 pl-2 py-1 my-3' />
-          <button onClick={() => Signup(email, password, date, phone, address)} className='bg-green-400 hover:bg-green-500 text-white rounded px-3 py-1 mt-5'>Signup</button>
+          <button onClick={() => Signup(email, password, name, date, phone, address)} className='bg-green-400 hover:bg-green-500 text-white rounded px-3 py-1 mt-5'>Signup</button>
       </div>
       <p className='text-black'>Already have an account? <Link to='/login' className='text-green-500'>Sign in</Link> </p>
     </div>

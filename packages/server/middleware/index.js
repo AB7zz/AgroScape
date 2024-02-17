@@ -52,10 +52,6 @@ class Middleware {
 		if (!user) {
 			return res.status(404).send({ success: false, message: "User Not found." });
 		}
-		
-		if(user && !user.verified){
-			return res.status(401).send({ success: false, message: "User not verified." });
-		}
 
 		next()
 	}

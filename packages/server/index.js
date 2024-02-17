@@ -30,7 +30,7 @@ app.options('*', cors())
 app.use(express.json({extended: true}))
 app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
-    res.send('Metasave server')
+    res.send('Agroscape server')
 })
 app.use('/api', routes)
 

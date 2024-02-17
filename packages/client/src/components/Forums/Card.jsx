@@ -9,7 +9,7 @@ const Card = ({ id, title, desc, cLength }) => {
             <p className='my-3 text-gray-500'>{desc.slice(0,100)}...</p>
             <div className='flex justify-evenly'>
                 <div className='flex items-center'>
-                    <i class="fa-solid fa-comment mr-1"></i>
+                    <i className="fa-solid fa-comment mr-1"></i>
                     {cLength > 1 ? `View comments` : `View comment`}
                 </div>
             </div>

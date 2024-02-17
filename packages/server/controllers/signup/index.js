@@ -8,8 +8,6 @@ const signup = async(req, res) => {
         const name = req.body.name
         const dob = req.body.dob
         const address = req.body.address
-        const points = req.body.points
-        const streak = req.body.streak
         const phone = req.body.phone
 
         const user = new User({
@@ -18,10 +16,7 @@ const signup = async(req, res) => {
             name: name,
             dob: dob,
             address: address,
-            points: points,
-            streak: streak,
             phone: phone
-
         });
 
         user.save()

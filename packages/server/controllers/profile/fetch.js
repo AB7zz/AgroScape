@@ -2,7 +2,9 @@ import User from "../../models/user.js";
 
 const FetchProfile = async (req, res) => {
     try {
-        const profile = await User.find({});
+        const profile = await User.find({
+            _id: req.params.id
+        });
         res.json({ profile });
     } catch (error) {
         console.error(error);

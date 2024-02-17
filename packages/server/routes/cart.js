@@ -4,6 +4,6 @@ import Fetchcart from '../controllers/cart/fetch.js'
 const router = express.Router()
 
 router.post('/cart', Insertcart)
-router.get('/cart', Fetchcart)
+router.get('/cart/:id', Fetchcart)
 
 export default router

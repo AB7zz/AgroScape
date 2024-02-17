@@ -23,8 +23,8 @@ function App() {
 
   return (
     <>
-      <TopNav />
       <BrowserRouter>
+        <TopNav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/marketplace" element={<MarketPlace />} />
@@ -43,8 +43,8 @@ function App() {
           <Route path="/steps" element={<Steps />} />
           <Route path="/create" element={<CreateForum />} />
         </Routes>
+        <BotNav />
       </BrowserRouter>
-      <BotNav />
     </>
   )
 }

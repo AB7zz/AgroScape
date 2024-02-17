@@ -31,7 +31,7 @@ const login = async(req, res) => {
               expiresIn: 86400, // 24 hours
             });
 
-        res.status(200).send({ success: true, token })
+        res.status(200).send({ success: true, token, id: user._id })
     } catch (error) {
         console.log(error)
     }
