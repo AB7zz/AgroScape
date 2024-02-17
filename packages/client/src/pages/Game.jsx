@@ -77,6 +77,9 @@ const Game = () => {
   const { nextDay, day, fetchProfile, profile, toDo, setToDo, fetchTask } = useUserContext()
   const [step, setStep] = React.useState(localStorage.getItem('plant') == 'tomato' ? 2 : 1)
   const [hurt, setHurt] = React.useState(false)
+  const [isDaytime, setIsDaytime] = React.useState(true); // Track day or night mode
+  const [isDarkMode, setIsDarkMode] = React.useState(false); // Track dark mode
+  const [changeTimeClicked, setChangeTimeClicked] = React.useState(false); // Track if "Change Time" button is clicked
   React.useEffect(() => {
     if(hurt){
       setTimeout(() => {
@@ -89,7 +92,16 @@ const Game = () => {
     fetchProfile()
     fetchTask()
   }, [])
-  
+
+  const changeMode = () => {
+    // Toggle between day and night mode
+    setIsDaytime((prevIsDaytime) => !prevIsDaytime);
+    // Toggle dark mode if needed
+    setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode);
+    // Toggle the state to indicate that "Change Time" button is clicked
+    setChangeTimeClicked((prevChangeTimeClicked) => !prevChangeTimeClicked);
+  };
+
   const plants = [
     {
       img: '/tomato.png',
@@ -108,6 +120,10 @@ const Game = () => {
       name: 'Cucumber'
     }
   ]
+  const containerStyle = {
+    backgroundColor: changeTimeClicked ? '#0048AB' : (isDaytime ? '#FFFDB4' : '#333'),
+    transition: 'background-color 0.5s',
+  };
   return (
     <>
       {step == 1 ? 
@@ -126,19 +142,42 @@ const Game = () => {
             </div>
           </div>
         </Link>
-        <div className='bg-gray-200 h-full w-full py-5'>
+        <div className='bg-[#FFFDB4] h-full w-full py-5' style={containerStyle}>
           <h1 className='feather text-center text-[#16A637] font-bold text-4xl'>Day {day*day*10}</h1>
           {hurt && 
           <div className='absolute z-20 mt-[180px] ml-[150px]'>
               <Player
               autoplay
+              loop
               src={`/plant_stages/hurt.json`}
               style={{ height: '150px', width: '150px' }}
             >
               <Controls />
             </Player>
           </div>
+          
           }
+          <div className='absolute ml-[70px] mb-[5px]'>
+              {isDaytime ? (
+                <Player
+                  autoplay
+                  loop
+                  src={`/sun.json`}
+                  style={{ height: '250px', width: '250px' }}
+                >
+                  <Controls />
+                </Player>
+              ) : (
+                <Player
+                  autoplay
+                  loop
+                  src={`/moon.json`}
+                  style={{ height: '250px', width: '250px' }}
+                >
+                  <Controls />
+                </Player>
+              )}
+            </div>
           <div className='absolute ml-[50px]'>
             <Player
               autoplay
@@ -164,6 +203,9 @@ const Game = () => {
           {profile && toDo && toDo[day].map(task => <Row day={day} toDo={toDo} setToDo={setToDo} task={task} />)}
           <div className='flex justify-center my-5'>
             <button onClick={nextDay} className='feather rounded-[30px] bg-black text-white text-center font-semibold px-5 py-3'>Move to next day</button>
+          </div>
+          <div className='flex justify-center my-5'>
+            <button onClick={changeMode} className='feather rounded-[30px] bg-black text-white text-center font-semibold px-5 py-3'>Change Time</button>
           </div>
         </div>
       </div>
