@@ -8,8 +8,8 @@ const MarketCard = () => {
   return (
     <div className='mb-20'>
         <div className='flex w-full justify-between align-center'>
-            <h1 className='font-semibold text-black text-2xl'>Marketplace</h1>
-            <Link to='/marketplace' className='text-xl text-blue-500 font-semibold'>View more</Link>
+            <h1 className='feather font-semibold text-black text-2xl'>Marketplace</h1>
+            <Link to='/marketplace' className='feather text-xl text-blue-500 font-semibold'>View more</Link>
         </div>
         <div className='grid grid-cols-2 gap-5'>
             {marketItems && marketItems.slice(0, 4).map(item => 

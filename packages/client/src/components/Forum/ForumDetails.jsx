@@ -19,18 +19,18 @@ const Reply = ({id, comments, users, comment, left, setLeft}) => {
                         <div key={r._id} className='my-3'>
                             <div className='flex items-center'>
                                 <i className="fa-solid fa-user"></i>
-                                <h1 className='ml-2 font-semibold'>{users.find(user => user._id == r.userId)?.name}</h1>
+                                <h1 className='feather ml-2 font-semibold'>{users.find(user => user._id == r.userId)?.name}</h1>
                             </div>
-                            <p className='mt-2 text-gray-500'>{r.comment}</p>
+                            <p className='feather mt-2 text-gray-500'>{r.comment}</p>
                             {added ? 
                                 <div className='mt-10 flex'>
-                                    <input type="text" onChange={e => setReply(e.target.value)} className='w-full px-3 py-1 rounded-[40px] border' placeholder='Write your reply...' />
-                                    <button onClick={handleReply} className='ml-2 bg-[#53BE28] rounded-[50%] px-2'>
+                                    <input type="text" onChange={e => setReply(e.target.value)} className='feather w-full px-3 py-1 rounded-[40px] border' placeholder='Write your reply...' />
+                                    <button onClick={handleReply} className='ml-2 bg-[#16A637] rounded-[50%] px-2'>
                                         <i className="fa-solid fa-paper-plane text-white"></i>
                                     </button>
                                 </div>
                                 :
-                                    <p onClick={handleAddReply} className='text-blue-500 mt-2'>Reply</p>
+                                    <p onClick={handleAddReply} className='feather text-blue-500 mt-2'>Reply</p>
                             }
                             <Reply left={left+20} setLeft={setLeft} comments={comments} users={users} comment={r} />
                         </div>
@@ -57,18 +57,18 @@ const Comment = ({id, comment, comments, users}) => {
             <div key={comment.id} className='my-3'>
                 <div className='flex items-center'>
                     <i className="fa-solid fa-user"></i>
-                    <h1 className='ml-2 font-semibold'>{users.find(user => user._id == comment.userId)?.name}</h1>
+                    <h1 className='feather ml-2 font-semibold'>{users.find(user => user._id == comment.userId)?.name}</h1>
                 </div>
-                <p className='mt-2 text-gray-500'>{comment.comment}</p>
+                <p className='feather mt-2 text-gray-500'>{comment.comment}</p>
                 {added ? 
                 <div className='mt-10 flex'>
-                    <input type="text" onChange={e => setReply(e.target.value)} className='w-full px-3 py-1 rounded-[40px] border' placeholder='Write your reply...' />
-                    <button onClick={handleReply} className='ml-2 bg-[#53BE28] rounded-[50%] px-2'>
+                    <input type="text" onChange={e => setReply(e.target.value)} className='feather w-full px-3 py-1 rounded-[40px] border' placeholder='Write your reply...' />
+                    <button onClick={handleReply} className='ml-2 bg-[#16A637] rounded-[50%] px-2'>
                         <i className="fa-solid fa-paper-plane text-white"></i>
                     </button>
                 </div>
                 :
-                    <p onClick={handleAddReply} className='text-blue-500 mt-2'>Reply</p>
+                    <p onClick={handleAddReply} className='feather text-blue-500 mt-2'>Reply</p>
                 }
                 <Reply id={id} left={left} setLeft={setLeft} comments={comments} users={users} comment={comment} />
             </div>
@@ -87,16 +87,16 @@ const ForumDetails = ({ id, title, desc, comments }) => {
     }
   return (
     <div className='px-5 py-5'>
-        <h1 className='font-bold text-3xl'>{title}</h1>
-        <p className='text-gray-500 my-5'>{desc}</p>
+        <h1 className='feather font-bold text-3xl'>{title}</h1>
+        <p className='feather text-gray-500 my-5'>{desc}</p>
         <div className='flex items-center'>
-            <i className="mr-2 fa-solid fa-comment mr-1"></i>
-            <h1 className='text-zinc-500 font-semibold'>{comments.length > 1 ? `${comments.length} comments` : `${comments.length} comment`}</h1>
+            <i className="fa-solid fa-comment mr-1"></i>
+            <h1 className='feather text-zinc-500 font-semibold'>{comments.length > 1 ? `${comments.length} comments` : `${comments.length} comment`}</h1>
         </div>
 
         <div className='mt-10 flex'>
-            <input type="text" onChange={e => setComment(e.target.value)} className='w-full px-3 py-1 rounded-[40px] border' placeholder='Write your comment...' />
-            <button onClick={handleComment} className='ml-2 bg-[#53BE28] rounded-[50%] px-2'>
+            <input type="text" onChange={e => setComment(e.target.value)} className='feather w-full px-3 py-1 rounded-[40px] border' placeholder='Write your comment...' />
+            <button onClick={handleComment} className='ml-2 bg-[#16A637] rounded-[50%] px-2'>
                 <i className="fa-solid fa-paper-plane text-white"></i>
             </button>
         </div>

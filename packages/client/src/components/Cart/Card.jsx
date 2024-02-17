@@ -8,11 +8,11 @@ const Card = ({item, img, name, price}) => {
                 <img src={img} alt={name} className='w-20 h-20' />
             </div>
             <div>
-                <h1 className='text-xl font-semibold'>{name}</h1>
-                <h1 className='text-xl font-semibold'>₹ {price}</h1>
+                <h1 className='feather text-xl font-semibold'>{name}</h1>
+                <h1 className='feather text-xl font-semibold'>₹ {price}</h1>
             </div>
             <div>
-                <h1 className='text-xl font-semibold'>Qty: {item.quantity}</h1>
+                <h1 className='feather text-xl font-semibold'>Qty: {item.quantity}</h1>
             </div>
         </div>
     </div>

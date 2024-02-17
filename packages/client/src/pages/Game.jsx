@@ -28,7 +28,7 @@ const Row = ({task, setToDo, toDo, day}) => {
   return (
     <div className=''>
       <div className='flex justify-between py-5'>
-        <p>{task.task}</p>
+        <p className='feather'>{task.task}</p>
         <input onClick={e => handleClick(e, task.task)} type="checkbox" className='w-[50px]' />
       </div>
       <hr />
@@ -76,7 +76,7 @@ const Game = () => {
     <>
       {step == 1 ? 
       <div className='px-5 py-5 mb-20'>
-        <h1 className='text-center font-bold text-2xl'>Which plant do you <i>plan</i> to grow ?</h1>
+        <h1 className='feather text-center font-bold text-2xl'>Which plant do you <i>plan</i> to grow ?</h1>
         <div className='grid grid-cols-2 gap-5'>
           {plants.map(plant => <Card plant={plant} setStep={setStep} />)}
         </div>
@@ -85,13 +85,13 @@ const Game = () => {
       <div className='mb-20'>
         <Link to='/chat'>
           <div className='absolute right-[10px] top-[115px]'>
-            <div className='bg-[#53BE28] rounded-[50%] px-2 py-2'>
+            <div className='bg-[#16A637] rounded-[50%] px-2 py-2'>
             <i className="fa-brands fa-rocketchat text-white"></i>
             </div>
           </div>
         </Link>
         <div className='bg-gray-200 h-full w-full py-5'>
-          <h1 className='text-center text-[#53BE28] font-bold text-4xl'>Day {day*10*day}</h1>
+          <h1 className='feather text-center text-[#16A637] font-bold text-4xl'>Day {day*10*day}</h1>
           {hurt && 
           <div className='absolute z-20 mt-[180px] ml-[150px]'>
               <Player
@@ -124,10 +124,10 @@ const Game = () => {
           </div>
         </div>
         <div className='py-5 px-5'>   
-          <p className='text-black font-bold text-xl'>To-do</p>
+          <p className='feather text-black font-bold text-xl'>To-do</p>
           {profile && toDo && toDo[day].map(task => <Row day={day} toDo={toDo} setToDo={setToDo} task={task} />)}
           <div className='flex justify-center my-5'>
-            <button onClick={nextDay} className='rounded-[30px] bg-black text-white text-center font-semibold px-5 py-3'>Move to next day</button>
+            <button onClick={nextDay} className='feather rounded-[30px] bg-black text-white text-center font-semibold px-5 py-3'>Move to next day</button>
           </div>
         </div>
       </div>

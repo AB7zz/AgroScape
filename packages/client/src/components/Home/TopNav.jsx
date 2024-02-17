@@ -2,10 +2,10 @@ import React from 'react'
 
 const TopNav = () => {
   return (
-    <div className='bg-[#53BE28] py-5 flex items-center'>
+    <div className='bg-[#16A637] py-0 flex items-center z-20 relative'>
         <img src="/agroscape.png" className='w-16' />
-        <div className='flex justify-center w-full'>
-          <span className='ml-[-30px] text-center text-white font-bold text-3xl'>Agro</span><span className='text-zinc-800 font-bold text-3xl'>Scape</span>
+        <div className='flex ml-7 w-full'>
+          <span className='feather ml-[-30px] text-center text-white font-bold text-3xl'>agro</span><span className='feather text-zinc-800 font-bold text-3xl'>scape</span>
         </div>
     </div>
   )

@@ -1,12 +1,13 @@
 import React from 'react'
 import { useUserContext } from '../context/UserContext'
+import { Player, Controls } from '@lottiefiles/react-lottie-player'
 
 const displayMessage = (message, position) => {
   if(position == 'right'){
     return (
       <div className='flex relative items-center my-5 ml-[270px]'>
         <div className='rounded-[15px] px-3 py-2 bg-green-300 '>
-          <p className='text-black'>{message}</p>
+          <p className='feather text-black'>{message}</p>
         </div>
         <i class="ml-2 fa-solid fa-user"></i>
       </div>
@@ -16,7 +17,7 @@ const displayMessage = (message, position) => {
       <div className='flex relative items-center my-5'>
         <i class="mr-2 fa-solid fa-carrot text-2xl"></i>
         <div className='rounded-[15px] px-3 py-2 bg-zinc-300 '>
-          <p className='text-black'>{message}</p>
+          <p className='feather text-black'>{message}</p>
         </div>
       </div>
     )
@@ -35,10 +36,20 @@ const Chat = () => {
   }
   return (
     <div>
-        <div className='bg-gray-100 px-3 py-3 flex items-center'>
+        {/* <div className='bg-gray-100 px-3 py-3 flex items-center'>
             <i class="fa-solid fa-carrot text-2xl"></i>
             <p className='ml-2 text-xl font-semibold'>Tomato</p>
-        </div>
+        </div> */}
+
+        <Player
+          autoplay
+          loop
+          src={`/tomato.json`}
+          className='absolute top-[18px] left-[120px]'
+          style={{ height: '150px', width: '150px' }}
+          >
+          <Controls />
+        </Player>
 
         <div className='px-5 py-5'>
           {messages.map(message => {
@@ -50,9 +61,9 @@ const Chat = () => {
           })}
         </div>
 
-        <div className='fixed bottom-[100px] w-full px-5 flex'>
-            <input onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Enter message" className='rounded border-2 w-full px-5 py-2' />
-            <button onClick={handleSubmit} className='rounded bg-[#53BE28] px-2 ml-2'>
+        <div className='fixed bottom-[100px] w-full px-3 flex'>
+            <input onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Enter message" className='feather rounded border-2 w-full px-5 py-2' />
+            <button onClick={handleSubmit} className='rounded bg-[#16A637] px-5 ml-2'>
               <i class="fa-solid fa-paper-plane text-white"></i>
             </button>
         </div>

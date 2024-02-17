@@ -15,7 +15,7 @@ const Cart = () => {
         <Card key={item._id} item={item} img={marketItems.find(m => m._id == item.itemId)?.img} name={marketItems.find(m => m._id == item.itemId)?.name} price={marketItems.find(m => m._id == item.itemId)?.price} />
       ))}
       <div className='flex justify-center'>
-        <button onClick={Checkout} className='bg-black text-white w-1/2 m-auto py-2 rounded shadow-xl'>Checkout</button>
+        <button onClick={Checkout} className='feather bg-black text-white w-1/2 m-auto py-2 rounded shadow-xl'>Checkout</button>
       </div>
     </div>
   )
