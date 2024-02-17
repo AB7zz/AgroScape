@@ -5,7 +5,7 @@ const FetchOrders = async (req, res) => {
         const order = await Orders.find({
             userId: req.params.id
         });
-        res.json({ order });
+        res.json({ orders: order });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

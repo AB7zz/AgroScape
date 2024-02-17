@@ -11,7 +11,7 @@ const Orders = () => {
   return (
     <div className='mb-20'>
       {marketItems && orders && orders.map(order => (
-        <Card key={order._id} order={order} img={marketItems.find(m => m._id == order._id)?.img} name={marketItems.find(m => m._id == order._id)?.name} price={marketItems.find(m => m._id == order._id)?.price} />
+        <Card key={order._id} order={order} img={marketItems.find(m => m._id == order.itemId)?.img} name={marketItems.find(m => m._id == order.itemId)?.name} price={marketItems.find(m => m._id == order.itemId)?.price} />
       ))}
     </div>
   )

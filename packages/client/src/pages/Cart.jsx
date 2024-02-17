@@ -11,8 +11,8 @@ const Cart = () => {
 
   return (
     <div className='mb-20'>
-      {cart && marketItems && && cart.map(item => (
-        <Card key={item._id} item={item} img={marketItems.find(m => m._id == item._id)?.img} name={marketItems.find(m => m._id == item._id)?.name} price={marketItems.find(m => m._id == item._id)?.price} />
+      {cart && marketItems && cart.map(item => (
+        <Card key={item._id} item={item} img={marketItems.find(m => m._id == item.itemId)?.img} name={marketItems.find(m => m._id == item.itemId)?.name} price={marketItems.find(m => m._id == item.itemId)?.price} />
       ))}
       <div className='flex justify-center'>
         <button onClick={Checkout} className='bg-black text-white w-1/2 m-auto py-2 rounded shadow-xl'>Checkout</button>

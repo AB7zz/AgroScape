@@ -283,7 +283,7 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/cart/${localStorage.getItem('id')}`)
             .then(res => {
                 setCart(res.data.cart)
-                console.log(res.data)
+                console.log(res.data.cart)
             })
         } catch (error) {
             console.log(error)
