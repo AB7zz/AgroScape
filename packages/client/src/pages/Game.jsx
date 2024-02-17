@@ -20,6 +20,8 @@ const Row = ({task, setToDo, toDo, day}) => {
     toDo[day] = newTask
 
     const newToDo = toDo
+
+    setToDo(newToDo)
     
     updateTask(newToDo, localStorage.getItem('plant'))
   }
@@ -81,6 +83,13 @@ const Game = () => {
       </div>
       : 
       <div className='mb-20'>
+        <Link to='/chat'>
+          <div className='absolute right-[10px] top-[115px]'>
+            <div className='bg-[#53BE28] rounded-[50%] px-2 py-2'>
+            <i className="fa-brands fa-rocketchat text-white"></i>
+            </div>
+          </div>
+        </Link>
         <div className='bg-gray-200 h-full w-full py-5'>
           <h1 className='text-center text-[#53BE28] font-bold text-4xl'>Day {day*10*day}</h1>
           {hurt && 

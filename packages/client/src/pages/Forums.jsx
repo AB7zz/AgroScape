@@ -3,7 +3,10 @@ import { useUserContext } from '../context/UserContext'
 import Card from '../components/Forums/Card'
 
 const Forums = () => {
-  const { forums } = useUserContext()
+  const { forums, fetchForums } = useUserContext()
+  React.useEffect(() => {
+    fetchForums()
+  }, [])
   return (
     <div className='mb-20 px-5'>
       {forums && forums.map(forum => 

@@ -260,6 +260,17 @@ export const UserContextProvider = ({children}) => {
         ]
     ])
 
+    const [messages, setMessages] = React.useState([
+        {
+          from: 'user',
+          message: 'Hello'
+        },
+        {
+          from: 'bot',
+          message: 'Hi, how can I help you?'
+        }
+    ])
+
     const [day, setDay] = React.useState(0)
 
     const [profile, setProfile] = React.useState({})
@@ -429,6 +440,37 @@ export const UserContextProvider = ({children}) => {
         })
     }
 
+    const fetchMessages = () => {
+        axios.get(`${serverUrl}/chat`)
+        .then(res => {
+            console.log(res.data)
+            setMessages(res.data.messages)
+        })
+    }
+
+    const sendMessage = async(message) => {
+        const openaiApiEndpoint = 'https://api.openai.com/v1/completions';
+        const plant = localStorage.getItem('plant')
+        let prompt = `Imagine you're a ${plant} and I'm a human. Here is my message: "${message}". Reply to me. No need to start with "I'm a ${plant} and I prefer...". Just reply as if you're a ${plant} and you're answering the question.`
+        axios.post(openaiApiEndpoint, 
+            {
+                prompt,
+                model:"text-davinci-003",
+                max_tokens: 400,
+            }, 
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + import.meta.env.VITE_OPENAI_API_KEY
+            }
+            }
+        )
+        .then(res => {
+            const reply = res.data.choices[0].text.trim()
+            setMessages([...messages, {from: 'bot', message: reply}])
+        })
+    }
+
     return(
         <UserContext.Provider value={{
             userError,
@@ -440,8 +482,12 @@ export const UserContextProvider = ({children}) => {
             cart,
             orders,
             day,
-            fetchTask,
             toDo,
+            messages,
+            setMessages,
+            fetchTask,
+            fetchMessages,
+            sendMessage,
             setToDo,
             fetchProfile,
             nextDay,

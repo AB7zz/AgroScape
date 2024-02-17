@@ -17,6 +17,7 @@ import Steps from './pages/Steps'
 import TopNav from './components/Home/TopNav'
 import BotNav from './components/Home/BotNav'
 import CreateForum from './pages/CreateForum'
+import Chat from './pages/Chat'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/steps" element={<Steps />} />
           <Route path="/create" element={<CreateForum />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
         <BotNav />
       </BrowserRouter>
