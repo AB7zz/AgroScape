@@ -14,12 +14,15 @@ import NewsArticle from './pages/NewsArticle'
 import Orders from './pages/Orders'
 import Home from './pages/Home'
 import Steps from './pages/Steps'
+import TopNav from './components/Home/TopNav'
+import BotNav from './components/Home/BotNav'
 
 
 function App() {
 
   return (
     <>
+      <TopNav />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,6 +42,7 @@ function App() {
           <Route path="/steps" element={<Steps />} />
         </Routes>
       </BrowserRouter>
+      <BotNav />
     </>
   )
 }

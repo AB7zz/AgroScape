@@ -28,6 +28,7 @@ export const AuthContextProvider = ({children}) => {
                 setAuthError({error: false, message: ''})
                 localStorage.setItem('email', email)
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('id', res.data.id)
                 console.log('login success')
                 window.location.replace('/')
             }
@@ -37,18 +38,16 @@ export const AuthContextProvider = ({children}) => {
         }
     }
 
-    const Signup = async(email, password) => {
+    const Signup = async(email, password, date, phone, address) => {
         try {
             console.log(email, password)
             setEmail(email)
             localStorage.setItem('email', email)
-            const res = await axios.post(`${serverUrl}/signup`, {email, password})
+            const res = await axios.post(`${serverUrl}/signup`, {email, password, date, phone, address})
             if(res.data.success){
-                const code = res.data.code
-                sendEmail(email, code)
                 setAuthError({error: false, message: ''})
                 console.log('pass to verification')
-                window.location.replace('/verify')
+                window.location.replace('/login')
             }else{
                 localStorage.removeItem('email')
                 setAuthError({error: true, message: error.response.data.message})
