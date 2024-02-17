@@ -264,6 +264,8 @@ export const UserContextProvider = ({children}) => {
         }
     ])
 
+    const [reminders, setReminders] = React.useState([])
+
     const [day, setDay] = React.useState(0)
 
     const [profile, setProfile] = React.useState({})
@@ -450,14 +452,14 @@ export const UserContextProvider = ({children}) => {
     }
 
     const sendMessage = async(message) => {
-        const openaiApiEndpoint = 'https://api.openai.com/v1/completions';
+        const openaiApiEndpoint = 'https://api.openai.com/v1/chat/completions';
         const plant = localStorage.getItem('plant')
         let prompt = `Imagine you're a ${plant} and I'm a human. Here is my message: "${message}". Reply to me. No need to start with "I'm a ${plant} and I prefer...". Just reply as if you're a ${plant} and you're answering the question.`
         axios.post(openaiApiEndpoint, 
             {
-                prompt,
                 model:"gpt-3.5-turbo",
-                max_tokens: 400,
+                messages: [{role: 'user', content: prompt}],
+                temperature: 0.7
             }, 
             {
                 headers: {
@@ -467,9 +469,38 @@ export const UserContextProvider = ({children}) => {
             }
         )
         .then(res => {
-            const reply = res.data.choices[0].text.trim()
-            setMessages([...messages, {from: 'bot', message: reply}])
+            const reply = res.data.choices[0].message.content
+            setMessages([...messages, { from: 'user', message: message }, {from: 'bot', message: reply}])
         })
+    }
+
+    const addReminder = (time, task, setReminderSet) => {
+        console.log(time, task)
+        setReminderSet(true)
+        axios.post(`${serverUrl}/reminder`, {time, task, id: localStorage.getItem('id')})
+    }
+
+    const fetchReminder = () => {
+        console.log('fetching reminders')
+        axios.get(`${serverUrl}/reminder/${localStorage.getItem('id')}`)
+        .then(res => {
+            console.log(res.data.reminders)
+            setReminders(res.data.reminders)
+        })
+    }
+
+    const sendReminder = () => {
+        console.log('running');
+        const now = new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+        reminders.forEach(reminder => {
+            const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
+            if (currentHours === reminderHours && currentMinutes === reminderMinutes) {
+                alert(`Reminder: ${reminder.task}`);
+                // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
+            }
+        });
     }
 
     return(
@@ -485,6 +516,10 @@ export const UserContextProvider = ({children}) => {
             day,
             toDo,
             messages,
+            reminders,
+            fetchReminder,
+            sendReminder,
+            addReminder,
             setMessages,
             fetchTask,
             fetchMessages,

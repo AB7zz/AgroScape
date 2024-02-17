@@ -12,5 +12,6 @@ import day from './day.js'
 import task from './task.js'
 import plant from './plant.js'
 import chat from './chat.js'
+import reminder from './reminder.js'
 
-export default [login, signup, marketplace, cart, profile, orders, checkout, forums, comment, user, day, task, plant, chat]
+export default [login, signup, marketplace, cart, profile, orders, checkout, forums, comment, user, day, task, plant, chat, reminder]
