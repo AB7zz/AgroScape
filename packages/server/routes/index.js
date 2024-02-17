@@ -4,5 +4,6 @@ import marketplace from './marketplace.js'
 import cart from './cart.js'
 import profile from './profile.js'
 import orders from './orders.js'
+import checkout from './checkout.js'
 
-export default [login, signup, marketplace,cart,profile,orders]
+export default [login, signup, marketplace,cart,profile,orders,checkout]
