@@ -16,6 +16,7 @@ import Home from './pages/Home'
 import Steps from './pages/Steps'
 import TopNav from './components/Home/TopNav'
 import BotNav from './components/Home/BotNav'
+import CreateForum from './pages/CreateForum'
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/news/:id" element={<NewsArticle />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/steps" element={<Steps />} />
+          <Route path="/create" element={<CreateForum />} />
         </Routes>
       </BrowserRouter>
       <BotNav />

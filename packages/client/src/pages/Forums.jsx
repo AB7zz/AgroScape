@@ -7,7 +7,7 @@ const Forums = () => {
   return (
     <div>
       {forums && forums.map(forum => 
-        <Card key={forum.id} id={forum.id} title={forum.title} desc={forum.desc} cLength={forum.comments.length} />
+        <Card key={forum._id} id={forum._id} title={forum.title} desc={forum.desc} cLength={forum.comments.length} />
       )}
     </div>
   )
