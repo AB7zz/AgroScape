@@ -321,7 +321,7 @@ export const UserContextProvider = ({children}) => {
 
     const fetchOrders = () => {
         try {
-            axios.get(`${serverUrl}/orders`, {userId: localStorage.getItem('id')})
+            axios.get(`${serverUrl}/orders/${localStorage.getItem('id')}`)
             .then(res => {
                 setOrders(res.data.orders)
             })
