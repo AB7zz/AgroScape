@@ -46,7 +46,6 @@ export const AuthContextProvider = ({children}) => {
             const res = await axios.post(`${serverUrl}/signup`, {email, password, date, phone, address})
             if(res.data.success){
                 setAuthError({error: false, message: ''})
-                console.log('pass to verification')
                 window.location.replace('/login')
             }else{
                 localStorage.removeItem('email')
