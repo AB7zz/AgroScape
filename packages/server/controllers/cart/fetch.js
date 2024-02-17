@@ -2,7 +2,9 @@ import Cart from "../../models/cart.js";
 
 const FetchCart = async (req, res) => {
     try {
-        const cart = await Cart.find({});
+        const cart = await Cart.find({
+            userId: req.body.id
+        });
         res.json({ cart });
     } catch (error) {
         console.error(error);

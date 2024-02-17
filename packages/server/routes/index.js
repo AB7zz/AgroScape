@@ -5,5 +5,6 @@ import cart from './cart.js'
 import profile from './profile.js'
 import orders from './orders.js'
 import checkout from './checkout.js'
+import forums from './forums.js'
 
-export default [login, signup, marketplace,cart,profile,orders,checkout]
+export default [login, signup, marketplace,cart,profile,orders,checkout,forums]

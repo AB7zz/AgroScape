@@ -11,7 +11,7 @@ const ForumSchema = new Schema({
         type: String,
         required: true
     },
-    owner: {
+    userId: {
         type: Number, // Assuming user ID is a number, you can change it based on your user ID type
         required: true
     },
