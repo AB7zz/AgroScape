@@ -9,12 +9,14 @@ const Row = ({task, setToDo, day}) => {
   
   const { updateTask, toDo, addReminder, sendReminder, reminders, fetchReminder } = useUserContext()
   
-  React.useEffect(() => {
-    fetchReminder()
-    setInterval(() => {
-      sendReminder()
-    }, [500])
-  }, [reminder])
+  // React.useEffect(() => {
+  //   fetchReminder()
+  //   // setInterval(() => {
+  //   //   if(reminders.length > 0){
+  //   //     sendReminder()
+  //   //   }
+  //   // }, [5000])
+  // }, [reminders])
 
   const [reminder, setReminder] = React.useState(false)
   const [time, setTime] = React.useState('')
