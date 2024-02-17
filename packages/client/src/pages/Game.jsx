@@ -178,6 +178,16 @@ const Game = () => {
                 </Player>
               )}
             </div>
+            <div className='absolute ml-[50px]'>
+            <Player
+              autoplay
+              loop
+              src={`/wind.json`}
+              style={{ height: '300px', width: '300px' }}
+            >
+              <Controls />
+            </Player>
+          </div>
           <div className='absolute ml-[50px]'>
             <Player
               autoplay
