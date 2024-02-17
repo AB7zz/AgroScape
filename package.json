@@ -6,7 +6,9 @@
   "scripts": {
     "dev-fe": "npm --prefix packages/client run dev",
     "dev-be": "npm --prefix packages/server run dev",
-    "push": "git pull && git push -u origin main"
+    "push": "git pull && git push -u origin main",
+    "heroku-prebuild": "cd packages && cd server && npm install",
+    "start": "cd packages && cd server && npm run start"
   },
   "workspaces": [
     "packages/*"
