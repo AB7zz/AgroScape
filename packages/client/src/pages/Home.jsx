@@ -7,10 +7,14 @@ import { useUserContext } from '../context/UserContext'
 import GameCard from '../components/Home/GameCard'
 
 const Home = () => {
-  const { fetchMarketplace, fetchForums } = useUserContext()
+  const { fetchMarketplace, fetchForums, fetchProfile } = useUserContext()
   React.useEffect(() => {
+    if(localStorage.getItem('token') == null){
+      window.location.href = '/login'
+    }
     fetchMarketplace()
     fetchForums()
+    fetchProfile()
   }, [])
   return (
     <div>

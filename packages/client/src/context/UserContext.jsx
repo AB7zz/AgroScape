@@ -228,37 +228,30 @@ export const UserContextProvider = ({children}) => {
     ])
 
     const [toDo, setToDo] = React.useState([
+        // Day 0
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Buy tomato seeds', done: false },
+          { task: 'Prepare soil', done: false },
+          { task: 'Plant tomato seeds', done: false }
         ],
+        // Day 1
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Water tomato seeds', done: false }
+          // Additional tasks based on specific needs
         ],
+        // Day 2
         [
-          {
-            task: 'Buy soil',
-            done: false
-          },
-          {
-            task: 'Plant seeds',
-            done: false
-          }
+          { task: 'Check soil moisture', done: false },
+          { task: 'Provide sunlight', done: false }
+          // Additional tasks based on specific needs
+        ],
+        // Day X (Adjust as needed)
+        [
+          { task: 'Transplant seedlings (if applicable)', done: false },
+          { task: 'Continue watering and monitoring', done: false },
+          // Additional tasks based on specific needs
         ]
-    ])
+    ]);
 
     const [messages, setMessages] = React.useState([
         {
@@ -401,15 +394,23 @@ export const UserContextProvider = ({children}) => {
         axios.post(`${serverUrl}/plant`, {plant: localStorage.getItem('plant'), id: localStorage.getItem('id'), tasks: toDo})
     }
 
+    const checkIfAllChecked = () => {
+        return !toDo[day].some(task => !task.done)
+    }
+
     const nextDay = () => {
-        localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
-        setDay(day => day+1)
-        console.log(day+1)
-        axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
-        .then(res => {
-            setProfile(res.data.profile)
-            console.log(res.data)
-        })
+        const check = checkIfAllChecked()
+        console.log(check)
+        // if(check){
+            localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
+            setDay(day => day+1)
+            console.log(day+1)
+            axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
+            .then(res => {
+                setProfile(res.data.profile)
+                console.log(res.data)
+            })
+        // }
     }
 
     const fetchProfile = () => {
@@ -435,8 +436,8 @@ export const UserContextProvider = ({children}) => {
     const fetchTask = () => {
         axios.get(`${serverUrl}/task/${localStorage.getItem('plant')}/${localStorage.getItem('id')}`)
         .then(res => {
-            console.log(res.data)
-            // setToDo(res.data.tasks)
+            console.log(res.data.tasks)
+            setToDo(res.data.tasks)
         })
     }
 
@@ -455,7 +456,7 @@ export const UserContextProvider = ({children}) => {
         axios.post(openaiApiEndpoint, 
             {
                 prompt,
-                model:"text-davinci-003",
+                model:"gpt-3.5-turbo",
                 max_tokens: 400,
             }, 
             {
