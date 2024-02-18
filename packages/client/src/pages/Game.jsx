@@ -78,6 +78,7 @@ const Game = () => {
   const [step, setStep] = React.useState(localStorage.getItem('plant') == 'tomato' ? 2 : 1)
   const [hurt, setHurt] = React.useState(false)
   const [isDaytime, setIsDaytime] = React.useState(true); // Track day or night mode
+  const [Birds, setBirds] = React.useState(false); // Track if birds are flying
   const [isDarkMode, setIsDarkMode] = React.useState(false); // Track dark mode
   const [changeTimeClicked, setChangeTimeClicked] = React.useState(false); // Track if "Change Time" button is clicked
   React.useEffect(() => {

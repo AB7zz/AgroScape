@@ -478,16 +478,28 @@ export const UserContextProvider = ({children}) => {
 
     const sendReminder = () => {
         console.log('running', reminders);
-        const now = new Date();
-        const currentHours = now.getHours();
-        const currentMinutes = now.getMinutes();
-        reminders.forEach(reminder => {
-            const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
-            if (currentHours === reminderHours && currentMinutes < reminderMinutes) {
-                alert(`Reminder: ${reminder.task}`);
-                // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
-            }
-        });
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/serviceWorker.js')
+            .then(reg => {
+                console.log('Service Worker Registered', reg)
+                reg.showNotification('Reminder', {
+                    body: 'This is a reminder'
+                })
+            })
+            .catch(err => {
+                console.log('Service Worker Not Registered', err)
+            })
+        }
+        // const now = new Date();
+        // const currentHours = now.getHours();
+        // const currentMinutes = now.getMinutes();
+        // reminders.forEach(reminder => {
+        //     const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
+        //     if (currentHours === reminderHours && currentMinutes < reminderMinutes) {
+        //         alert(`Reminder: ${reminder.task}`);
+        //         // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
+        //     }
+        // });
     }
 
     return(
