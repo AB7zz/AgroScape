@@ -32,4 +32,4 @@ npm run dev-fe in Terminal 1
 npm run dev-be in Terminal 2
 
 ## Other Links
-Provide any other links ( for eg. Wireframe , UI, Abstract, Presentation )
+https://www.canva.com/design/DAF9Ch0LOBI/aM_cqm2zz-bHxqDenKA2kQ/edit?utm_content=DAF9Ch0LOBI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

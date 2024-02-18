@@ -47,6 +47,9 @@ const Profile = () => {
               <p to={item.path} className='feather text-center m-auto font-semibold text-[#707070] text-xl nunito'>{item.name}</p>
             </Link>
         ))}
+        <button onClick={Logout} className='bg-[#E9E9E9] px-5 py-10 flex drop-shadow-2xl'>
+          <p className='feather text-center m-auto font-semibold text-[#707070] text-xl nunito'>Logout</p>
+        </button>
           
       </div>
     </div>
