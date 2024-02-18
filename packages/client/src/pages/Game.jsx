@@ -140,7 +140,7 @@ const Game = () => {
           <div className='absolute ml-[50px]'>
             <Player
               autoplay
-              src={`/plant_stages/day${day}.json`}
+              src={`/plant_stages/day${day}zl.json`}
               style={{ height: '300px', width: '300px' }}
             >
               <Controls />

@@ -2,18 +2,17 @@
 
 
 # {AgroScape} - HACK4TKM
-Tell us about your project here
+
 
 ## Team Members
 [1. Abhinav C V](AB7zz)   
 [2.Jishnu M M](ThePyWizard)   
 
 ## Link to Project
-[Embed the live link of project](live_link)
+[Live Website](https://agroscape.netlify.app/)
 
 ## How it Works ?
-Explaining the working of project  
-Embed video of project demo
+[Video](https://youtu.be/NQxqnH5Q3GE)
 
 ## Technologies used
 MongoDB
@@ -32,4 +31,4 @@ npm run dev-fe in Terminal 1
 npm run dev-be in Terminal 2
 
 ## Other Links
-Provide any other links ( for eg. Wireframe , UI, Abstract, Presentation )
+[PPT](https://www.canva.com/design/DAF9Ch0LOBI/aM_cqm2zz-bHxqDenKA2kQ/edit?utm_content=DAF9Ch0LOBI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
