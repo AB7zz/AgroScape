@@ -1,4 +1,5 @@
 import Task from "../../models/task.js"
+import User from "../../models/user.js"
 
 const updateTask = async(req, res) => {
     try {
@@ -16,7 +17,11 @@ const updateTask = async(req, res) => {
 
         task.tasks = req.body.tasks
         task.save()
-        res.send({success: true})
+
+        const user = await User.findById(req.body.id)
+        user.points = user.points + 10
+        user.save()
+        res.send({success: true, profile: user})
     } catch (error) {
         console.log(error)
     }

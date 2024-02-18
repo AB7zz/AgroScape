@@ -11,6 +11,8 @@ export const UserContextProvider = ({children}) => {
 
 
     const { email } = useAuthContext()
+    
+    const [animateTick, setAnimateTick] = React.useState(false)
 
     const [userError, setUserError] = React.useState({
         error: false,
@@ -43,7 +45,6 @@ export const UserContextProvider = ({children}) => {
     const fetchUsers = () => {
         axios.get(`${serverUrl}/users`)
         .then(res => {
-            console.log(res.data.users)
             setUsers(res.data.users)
         })
     }
@@ -287,7 +288,6 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/forums`)
             .then(res => {
                 setForums(res.data.forums)
-                console.log(res.data.forums)
             })
         } catch (error) {
             console.log(error)
@@ -299,7 +299,6 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/forums/${id}`)
             .then(res => {
                 setForum(res.data.forum)
-                console.log(res.data.forum)
             })
         } catch (error) {
             console.log(error)
@@ -314,7 +313,6 @@ export const UserContextProvider = ({children}) => {
                 userId: localStorage.getItem('id')
             })
             .then(res => {
-                console.log(res.data)
                 setCart(res.data.cart)
             })
         } catch (error) {
@@ -327,7 +325,6 @@ export const UserContextProvider = ({children}) => {
             axios.get(`${serverUrl}/cart/${localStorage.getItem('id')}`)
             .then(res => {
                 setCart(res.data.cart)
-                console.log(res.data.cart)
             })
         } catch (error) {
             console.log(error)
@@ -343,7 +340,6 @@ export const UserContextProvider = ({children}) => {
                 from
             })
             .then(res => {
-                console.log(res.data)
                 setForum(res.data.forum)
             })
         } catch (error) {
@@ -355,7 +351,6 @@ export const UserContextProvider = ({children}) => {
         try {
             axios.post(`${serverUrl}/checkout`, {cart})
             .then(res => {
-                console.log(res.data)
                 window.location.replace('/')
             })
         } catch (error) {
@@ -382,7 +377,6 @@ export const UserContextProvider = ({children}) => {
                 userId: localStorage.getItem('id')
             })
             .then(res => {
-                console.log(res.data)
                 window.location.replace('/forums')
             })
         } catch (error) {
@@ -404,16 +398,19 @@ export const UserContextProvider = ({children}) => {
     const nextDay = () => {
         const check = checkIfAllChecked()
         console.log(check)
-        // if(check){
+        if(check){
+            setAnimateTick(true)
+            setTimeout(() => {
+                setAnimateTick(false)
+            }, 2000)
             localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
             setDay(day => day+1)
             console.log(day+1)
             axios.post(`${serverUrl}/day`, {day: parseInt(localStorage.getItem('day')), id: localStorage.getItem('id')})
             .then(res => {
                 setProfile(res.data.profile)
-                console.log(res.data)
             })
-        // }
+        }
     }
 
     const fetchProfile = () => {
@@ -432,22 +429,20 @@ export const UserContextProvider = ({children}) => {
     const updateTask = (newToDo, plant) => {
         axios.post(`${serverUrl}/task`, {tasks: newToDo, plant, id: localStorage.getItem('id')})
         .then(res => {
-            console.log(res.data)
+            setProfile(res.data.profile)
         })
     }
 
     const fetchTask = () => {
         axios.get(`${serverUrl}/task/${localStorage.getItem('plant')}/${localStorage.getItem('id')}`)
         .then(res => {
-            console.log(res.data.tasks)
-            setToDo(res.data.tasks)
+            // setToDo(res.data.tasks)
         })
     }
 
     const fetchMessages = () => {
         axios.get(`${serverUrl}/chat`)
         .then(res => {
-            console.log(res.data)
             setMessages(res.data.messages)
         })
     }
@@ -479,6 +474,18 @@ export const UserContextProvider = ({children}) => {
         console.log(time, task)
         setReminderSet(true)
         axios.post(`${serverUrl}/reminder`, {time, task, id: localStorage.getItem('id')})
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/serviceWorker.js')
+            .then(reg => {
+                console.log('Service Worker Registered', reg)
+                reg.showNotification(`It's ${time}!!!`, {
+                    body: `It's time to ${task}!!!`
+                })
+            })
+            .catch(err => {
+                console.log('Service Worker Not Registered', err)
+            })
+        }
     }
 
     const fetchReminder = () => {
@@ -490,18 +497,30 @@ export const UserContextProvider = ({children}) => {
         })
     }
 
-    const sendReminder = () => {
-        console.log('running');
-        const now = new Date();
-        const currentHours = now.getHours();
-        const currentMinutes = now.getMinutes();
-        reminders.forEach(reminder => {
-            const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
-            if (currentHours === reminderHours && currentMinutes === reminderMinutes) {
-                alert(`Reminder: ${reminder.task}`);
-                // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
-            }
-        });
+    const sendReminder = (message) => {
+        console.log('running', reminders);
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/serviceWorker.js')
+            .then(reg => {
+                console.log('Service Worker Registered', reg)
+                reg.showNotification('Reminder', {
+                    body: 'This is a reminder'
+                })
+            })
+            .catch(err => {
+                console.log('Service Worker Not Registered', err)
+            })
+        }
+        // const now = new Date();
+        // const currentHours = now.getHours();
+        // const currentMinutes = now.getMinutes();
+        // reminders.forEach(reminder => {
+        //     const [reminderHours, reminderMinutes] = reminder.time.split(':').map(Number);
+        //     if (currentHours === reminderHours && currentMinutes < reminderMinutes) {
+        //         alert(`Reminder: ${reminder.task}`);
+        //         // setReminders(prevReminders => prevReminders.filter((_, i) => i !== index))
+        //     }
+        // });
     }
 
     return(
@@ -518,6 +537,7 @@ export const UserContextProvider = ({children}) => {
             toDo,
             messages,
             reminders,
+            animateTick,
             fetchReminder,
             sendReminder,
             addReminder,
