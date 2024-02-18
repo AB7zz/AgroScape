@@ -428,6 +428,9 @@ export const UserContextProvider = ({children}) => {
 
     const updateTask = (newToDo, plant) => {
         axios.post(`${serverUrl}/task`, {tasks: newToDo, plant, id: localStorage.getItem('id')})
+        .then(res => {
+            setProfile(res.data.profile)
+        })
     }
 
     const fetchTask = () => {

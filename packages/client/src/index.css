@@ -34,3 +34,13 @@
     from, to { border-color: transparent }
     50% { border-color: orange; }
   }
+
+  @keyframes moveElements {
+    to {
+      top: 700px;
+    }
+  }
+
+  .moveDown {
+    animation: moveElements 30s linear infinite;
+  }

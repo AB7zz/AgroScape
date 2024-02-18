@@ -72,7 +72,24 @@ const Row = ({task, setToDo, day}) => {
       </div>
     </>
   )
+}
 
+const generateBugs = (setBugCount) => {
+  const randomTopValue = -Math.floor(Math.random() * 550)
+  const randomLeftValue = Math.floor(Math.random() * window.innerWidth)
+  const [hide, setHide] = React.useState(false)
+  const handleClick = () => {
+    setHide(true)
+    setBugCount(bugCount => bugCount+1)
+  }
+  return(
+    <>
+      {!hide && 
+      <div onClick={handleClick} style={{ top: `${randomTopValue}px`, left: `${randomLeftValue}px` }} className='absolute moveDown'>
+        <i class="fa-solid fa-bug text-white text-[50px]"></i>
+      </div>}
+    </>
+  )
 }
 
 const Game = () => {
@@ -84,6 +101,24 @@ const Game = () => {
   const [Birds, setBirds] = React.useState(false); // Track if birds are flying
   const [isDarkMode, setIsDarkMode] = React.useState(false); // Track dark mode
   const [changeTimeClicked, setChangeTimeClicked] = React.useState(false); // Track if "Change Time" button is clicked
+  const [bugCount, setBugCount] = React.useState(0)
+  const bugs = Array.from({ length: 10 }, (_, index) => generateBugs(setBugCount))
+  const [showScore, setShowScore] = React.useState(false)
+  const [game, setGame] = React.useState(false)
+  React.useEffect(() => {
+    if(bugCount == 10){
+      setShowScore(true)
+      localStorage.setItem('bugCount', bugCount)
+      setBugCount(0)
+    }
+    if(game){
+      setTimeout(() => {
+        setShowScore(true)
+        localStorage.setItem('bugCount', bugCount)
+        setBugCount(0)
+      }, 30000)
+    }
+  }, [game, bugCount])
   React.useEffect(() => {
     if(hurt){
       setTimeout(() => {
@@ -104,7 +139,6 @@ const Game = () => {
     fetchProfile()
     fetchTask()
     if(toDo.length > 0){
-      console.log(toDo[day])
       setScareCrow(toDo[day].some(t => t.task.includes('water') || t.task.includes('Water')))
     }
   }, [day])
@@ -141,6 +175,7 @@ const Game = () => {
     backgroundColor: changeTimeClicked ? '#0048AB' : (isDaytime ? '#FFFDB4' : '#333'),
     transition: 'background-color 0.5s',
   };
+
   return (
     <>
       {step == 1 ? 
@@ -152,6 +187,31 @@ const Game = () => {
       </div>
       : 
       <div className='mb-20'>
+        {game && !showScore &&
+        <div className='bg-zinc-800 w-screen h-screen'>
+          {bugs}
+        </div>
+        }
+        {game && showScore && 
+        <div className='bg-zinc-800 w-screen h-screen'>
+          <div className='flex justify-center items-center h-full'>
+            <div className='bg-white rounded-[20px] custom-border-1 px-5 py-5'>
+              <h1 className='feather text-center font-bold text-2xl'>You scored {localStorage.getItem('bugCount')} points!</h1>
+            </div>
+          </div>
+        </div>
+        }
+        <div onClick={() => {
+          setGame(game => !game)
+          setShowScore(false)
+        }} className='absolute left-[10px] top-[70px]'>
+          <div className='bg-zinc-800 z-50 rounded-[50%] px-2 py-2'>
+            {game || showScore ? 
+            <i class="fa-solid fa-xmark text-white"></i>
+            :
+            <i class="fa-solid fa-bug-slash text-white"></i> }
+          </div>
+        </div>
         <Link to='/chat'>
           <div className='absolute right-[10px] top-[70px]'>
             <div className='bg-[#16A637] rounded-[50%] px-2 py-2'>
