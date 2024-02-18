@@ -11,6 +11,8 @@ export const UserContextProvider = ({children}) => {
 
 
     const { email } = useAuthContext()
+    
+    const [animateTick, setAnimateTick] = React.useState(false)
 
     const [userError, setUserError] = React.useState({
         error: false,
@@ -396,7 +398,11 @@ export const UserContextProvider = ({children}) => {
     const nextDay = () => {
         const check = checkIfAllChecked()
         console.log(check)
-        // if(check){
+        if(check){
+            setAnimateTick(true)
+            setTimeout(() => {
+                setAnimateTick(false)
+            }, 2000)
             localStorage.setItem('day', Number(localStorage.getItem('day')) + 1)
             setDay(day => day+1)
             console.log(day+1)
@@ -404,7 +410,7 @@ export const UserContextProvider = ({children}) => {
             .then(res => {
                 setProfile(res.data.profile)
             })
-        // }
+        }
     }
 
     const fetchProfile = () => {
@@ -427,7 +433,7 @@ export const UserContextProvider = ({children}) => {
     const fetchTask = () => {
         axios.get(`${serverUrl}/task/${localStorage.getItem('plant')}/${localStorage.getItem('id')}`)
         .then(res => {
-            setToDo(res.data.tasks)
+            // setToDo(res.data.tasks)
         })
     }
 
@@ -465,6 +471,18 @@ export const UserContextProvider = ({children}) => {
         console.log(time, task)
         setReminderSet(true)
         axios.post(`${serverUrl}/reminder`, {time, task, id: localStorage.getItem('id')})
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/serviceWorker.js')
+            .then(reg => {
+                console.log('Service Worker Registered', reg)
+                reg.showNotification(`It's ${time}!!!`, {
+                    body: `It's time to ${task}!!!`
+                })
+            })
+            .catch(err => {
+                console.log('Service Worker Not Registered', err)
+            })
+        }
     }
 
     const fetchReminder = () => {
@@ -476,7 +494,7 @@ export const UserContextProvider = ({children}) => {
         })
     }
 
-    const sendReminder = () => {
+    const sendReminder = (message) => {
         console.log('running', reminders);
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('/serviceWorker.js')
@@ -516,6 +534,7 @@ export const UserContextProvider = ({children}) => {
             toDo,
             messages,
             reminders,
+            animateTick,
             fetchReminder,
             sendReminder,
             addReminder,

@@ -8,23 +8,15 @@ const Row = ({task, setToDo, day}) => {
 
   
   const { updateTask, toDo, addReminder, sendReminder, reminders, fetchReminder } = useUserContext()
-  
-  // React.useEffect(() => {
-  //   fetchReminder()
-  //   // setInterval(() => {
-  //   //   if(reminders.length > 0){
-  //   //     sendReminder()
-  //   //   }
-  //   // }, [5000])
-  // }, [reminders])
 
   const [reminder, setReminder] = React.useState(false)
   const [time, setTime] = React.useState('')
 
   const [reminderSet, setReminderSet] = React.useState(false)
 
+
   const handleClick = (e, taskName) => {
-    console.log(toDo[day])
+
     const newTask = toDo[day].map(task => {
       if(task.task == taskName){
         task.done = !task.done
@@ -62,7 +54,17 @@ const Row = ({task, setToDo, day}) => {
             :
             <i onClick={() => setReminder(reminder => !reminder)} class="fa-regular fa-bell text-blue-500 mr-2 text-lg"></i>
             }
-            <p className='feather'>{task.task}</p>
+            <div className='flex'>
+              <p className='feather mr-3'>{task.task}</p>
+              {
+                task.task.includes('Buy') && (
+                  <>
+                    <span className='feather mr-3'>-</span>
+                    <Link to='/marketplace' className='feather text-blue-500'>Order now</Link>
+                  </>
+                )
+              }
+            </div>
           </div>
           <input onClick={e => handleClick(e, task.task)} type="checkbox" className='w-[50px]' defaultChecked={task.done} />
         </div>
@@ -74,8 +76,9 @@ const Row = ({task, setToDo, day}) => {
 }
 
 const Game = () => {
-  const { nextDay, day, fetchProfile, profile, toDo, setToDo, fetchTask } = useUserContext()
+  const { nextDay, day, fetchProfile, profile, toDo, setToDo, fetchTask, animateTick } = useUserContext()
   const [step, setStep] = React.useState(localStorage.getItem('plant') == 'tomato' ? 2 : 1)
+  const [scareCrow, setScareCrow] = React.useState(false)
   const [hurt, setHurt] = React.useState(false)
   const [isDaytime, setIsDaytime] = React.useState(true); // Track day or night mode
   const [Birds, setBirds] = React.useState(false); // Track if birds are flying
@@ -90,9 +93,22 @@ const Game = () => {
   }, [hurt])
 
   React.useEffect(() => {
+    if(scareCrow){
+      setTimeout(() => {
+        setScareCrow(false)
+      }, 4500)
+    }
+  }, [scareCrow])
+
+  React.useEffect(() => {
     fetchProfile()
     fetchTask()
-  }, [])
+    if(toDo.length > 0){
+      console.log(toDo[day])
+      setScareCrow(toDo[day].some(t => t.task.includes('water') || t.task.includes('Water')))
+    }
+  }, [day])
+
 
   const changeMode = () => {
     // Toggle between day and night mode
@@ -159,26 +175,45 @@ const Game = () => {
           
           }
           <div className='absolute ml-[70px] mb-[5px]'>
-              {isDaytime ? (
-                <Player
-                  autoplay
-                  loop
-                  src={`/sun.json`}
-                  style={{ height: '250px', width: '250px' }}
-                >
-                  <Controls />
-                </Player>
-              ) : (
-                <Player
-                  autoplay
-                  loop
-                  src={`/moon.json`}
-                  style={{ height: '250px', width: '250px' }}
-                >
-                  <Controls />
-                </Player>
-              )}
-            </div>
+            {isDaytime ? (
+              <Player
+                autoplay
+                loop
+                src={`/sun.json`}
+                style={{ height: '250px', width: '250px' }}
+              >
+                <Controls />
+              </Player>
+            ) : (
+              <Player
+                autoplay
+                loop
+                src={`/moon.json`}
+                style={{ height: '250px', width: '250px' }}
+              >
+                <Controls />
+              </Player>
+            )}
+          </div>
+          <div className=''>
+            {scareCrow && (
+              <>
+                <div className='absolute left-[-100px] transform rotate-45'>
+                  <Player
+                    autoplay
+                    loop
+                    src={`/scarecrow.json`}
+                    style={{ height: '250px', width: '250px' }}
+                  >
+                    <Controls />
+                  </Player>
+                </div>
+                <div className='typewriter absolute top-[220px] left-[90px] bg-white rounded-[5px] px-2 p-1'>
+                  <h1 className='feather'>It's time to water!</h1>
+                </div>
+              </>
+            )}
+          </div>
             <div className='absolute ml-[50px]'>
             <Player
               autoplay
@@ -210,8 +245,23 @@ const Game = () => {
           </div>
         </div>
         <div className='py-5 px-5'>   
-          <p className='feather text-black font-bold text-xl'>To-do</p>
-          {profile && toDo && toDo[day].map(task => <Row day={day} toDo={toDo} setToDo={setToDo} task={task} />)}
+        {animateTick ?
+          <>
+            <Player
+              autoplay
+              loop
+              src={`/finishedtask.json`}
+              style={{ height: '150px', width: '150px' }}
+            >
+              <Controls />
+            </Player>
+          </>
+          :
+          <>
+            <p className='feather text-black font-bold text-xl'>To-do</p>
+            {profile && toDo && toDo[day].map(task => <Row scareCrow={scareCrow} setScareCrow={setScareCrow} day={day} toDo={toDo} setToDo={setToDo} task={task} /> )}
+          </>
+        }
           <div className='flex justify-center my-5'>
             <button onClick={nextDay} className='feather rounded-[30px] bg-black text-white text-center font-semibold px-5 py-3'>Move to next day</button>
           </div>
